@@ -13,6 +13,8 @@ declare -r  SGR_RED="\033[31m"
 declare -r  SGR_CYAN="\033[36m"
 declare -r  SGR_GREEN="\033[42m"
 
+XCOPY_PYTHON=${XCOPY_PYTHON:-python}
+
 echoRed () {
     : print red color
     printf "${SGR_RED}%s${SGR_RESET}\n" "$*"
