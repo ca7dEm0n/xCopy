@@ -1,5 +1,5 @@
 # xCopy
----
+
 [![Python3.x](https://img.shields.io/badge/Python-3.7-green.svg?style=plastic)](https://www.python.org/)
 
 MacOS剪切板操作
@@ -7,7 +7,7 @@ MacOS剪切板操作
 初衷只是为了能够在有度上发GIF表情包...
 
 # 基础使用
----
+
 
 启动
 ```
@@ -20,7 +20,6 @@ MacOS剪切板操作
 ```
 
 # 功能使用与场景
----
 
 ## 有度GIF图床链接修复
 
