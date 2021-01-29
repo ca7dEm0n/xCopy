@@ -20,6 +20,7 @@ from lib.utils import (logging, md5Calc, notify, readJsonFromFile,
 GIF_TEMP_PATH = "/tmp/gif"
 GIF_DATA_PATH = "/tmp/gif/.data.json"
 
+
 def _writeObject(p, obj):
     '''
     description: 剪切板写入数据
@@ -39,30 +40,24 @@ def _writeObject(p, obj):
     return _result
 
 
-def setTiffToPb(p, *args, **kwargs):
+def upPbURLData(p, url):
     '''
-    description: 剪切板重写图片数据
+    description: 修复链接
     '''
-    url = kwargs.get("url", None)
-
-    # 重写
-    _result = []
-
-    # 写入url属性
-    _declare_list = []
-
-    if url:
-        _declare_list.append(NSPasteboardTypeURL)
-
     p.declareTypes_owner_(
-        _declare_list,
+        [NSPasteboardTypeURL],
         None
     )
-    _writeObject(p, url)
+    _result = False
+    try:
+        _result = _writeObject(p, url)
+    except Exception as error:
+        logging.error("upPbURLData error: %s" % error)
 
+    # 不要太快
     sleep(0.5)
-    notify("GIF图片修复", "复制成功!")
-    return all(_result)
+    notify("GIF链接修复", "复制成功!")
+    return _result
 
 
 def run():
@@ -95,7 +90,7 @@ def run():
         cache_path = gif_data.get(img_md5, None)
         if cache_path:
             new_url = NSURL.fileURLWithPath_(cache_path)
-            setTiffToPb(pb, url=new_url)
+            upPbURLData(pb, new_url)
             return
 
         img_type = imghdr.what(img_path)
@@ -112,7 +107,7 @@ def run():
         new_url = NSURL.fileURLWithPath_(_tmp_file.name)
         _tmp_file.close()
 
-        setTiffToPb(pb, url=new_url)
+        upPbURLData(pb, new_url)
         gif_data[img_md5] = _tmp_file.name
         writeJsonToFile(gif_data, GIF_DATA_PATH)
         return

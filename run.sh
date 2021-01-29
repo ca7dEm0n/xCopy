@@ -56,6 +56,7 @@ stop() {
 
 restart() {
     stop
+    sleep 0.5
     start
 }
 
