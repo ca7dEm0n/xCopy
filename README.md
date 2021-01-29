@@ -2,12 +2,17 @@
 
 [![Python3.x](https://img.shields.io/badge/Python-3.7-green.svg?style=plastic)](https://www.python.org/)
 
+[![AppKit](https://img.shields.io/badge/Lib-AppKit-red.svg?style=plastic)](https://pypi.org/project/AppKit/)
 MacOS剪切板操作
 
 初衷只是为了能够在有度上发GIF表情包...
 
 # 基础使用
 
+依赖
+```
+pip install AppKit
+```
 
 启动
 ```
