@@ -5,6 +5,8 @@
  # @Motto: 欲目千里，更上一层
 ### 
 SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE[0]}); pwd)
+[ ! -f "${SCRIPT_DIR}/.env" ] && touch "${SCRIPT_DIR}/.env"
+
 source ${SCRIPT_DIR}/.env
 
 declare -r  SGR_RESET="\033[0m"
