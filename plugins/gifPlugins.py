@@ -20,6 +20,11 @@ from lib.utils import (logging, md5Calc, notify, readJsonFromFile,
 GIF_TEMP_PATH = "/tmp/gif"
 GIF_DATA_PATH = "/tmp/gif/.data.json"
 
+# gif支持列表
+SUPPORT_GIF_TYPE = [
+    "TencentAttributeStringType"
+]
+
 
 def _writeObject(p, obj):
     '''
@@ -73,8 +78,13 @@ def run():
             return None
 
         if ".gif" in _file_url:
-            if "TencentAttributeStringType" not in _type:
-                return None
+            _return = True
+            for _ in SUPPORT_GIF_TYPE:
+                if _ in _type:
+                    _return = False
+                    break
+            if _return:
+                return
 
     except Exception as err:
         logging.info("can't get url, error: %s" % err)
@@ -95,7 +105,7 @@ def run():
 
         img_type = imghdr.what(img_path)
         if not img_type or img_type != "gif":
-            return None
+            return
 
         _tmp_file = tempfile.NamedTemporaryFile(
             suffix=".gif",
